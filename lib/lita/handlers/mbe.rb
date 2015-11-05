@@ -8,7 +8,7 @@ module Lita
         user = response.user
         step = redis.get("user:question:#{user.id}")  || 'start'
         user_information = redis.hgetall("user:#{user.id}")
-        if !user_information['name'].nil?
+        if !user_information['fullname'].nil?
           step = 'mbe_address'
         end
 
