@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "lita", ">= 4.6"
   spec.add_runtime_dependency "wicked_pdf"
-  spec.add_runtime_dependency "wkhtmltopdf-binary"
+  spec.add_runtime_dependency "wkhtmltopdf-heroku"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "pry-byebug"
