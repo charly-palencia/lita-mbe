@@ -1,4 +1,5 @@
 require_relative '../../models/invoice'
+require 'ostruct'
 require 'wicked_pdf'
 require 'aws/s3'
 
@@ -85,7 +86,8 @@ module Lita
               title_link: "http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf",
               color: "#36a64f",
             })
-            robot.chat_service.send_attachment(user, [attachment])
+            user_data = OpenStruct.new(id: "@#{user.username}")
+            robot.chat_service.send_attachment(user_data, [attachment])
           else
             response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
           end
