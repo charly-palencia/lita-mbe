@@ -97,4 +97,4 @@ module Lita
       Lita.register_handler(self)
     end
   end
-iend
+end
