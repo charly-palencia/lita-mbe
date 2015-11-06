@@ -86,7 +86,7 @@ module Lita
               title_link: "http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf",
               color: "#36a64f",
             })
-            user_data = OpenStruct.new(id: "@#{user.name}")
+            user_data = OpenStruct.new(id: "@#{user.mention_name}")
             robot.chat_service.send_attachment(user_data, [attachment])
           else
             response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
@@ -97,4 +97,4 @@ module Lita
       Lita.register_handler(self)
     end
   end
-end
+iend
