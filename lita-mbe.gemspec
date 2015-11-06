@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "wkhtmltopdf-binary"
   spec.add_runtime_dependency "wkhtmltopdf-heroku"
   spec.add_runtime_dependency "activesupport"
+  spec.add_runtime_dependency 'aws-s3', '~> 0.6.3'
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "pry-byebug"
