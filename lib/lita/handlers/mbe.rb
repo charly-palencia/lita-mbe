@@ -78,6 +78,7 @@ module Lita
             :secret_access_key => ENV['S3_SECRET_ACCESS_KEY']
           )
 
+          AWS::S3::S3Object.delete "invoice-#{user.id}.pdf", 'lita-mbe'
           AWS::S3::S3Object.store("invoice-#{user.id}.pdf", open(file.path), 'lita-mbe', access: :public_read)
 
           response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
