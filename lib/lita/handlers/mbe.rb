@@ -80,18 +80,7 @@ module Lita
 
           AWS::S3::S3Object.store("invoice-#{user.id}.pdf", open(file.path), 'lita-mbe', access: :public_read)
 
-          if robot.config.robot.adapter == :slack
-            attachment = Lita::Adapters::Slack::Attachment.new('invoice ready!', {
-              title: "Invoice!",
-              title_link: "http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf",
-              color: "#36a64f",
-            })
-
-            user_data = OpenStruct.new(id: "@#{user.mention_name}")
-            robot.chat_service.send_attachment(user_data, [attachment])
-          else
-            response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
-          end
+          response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
         end
       end
 
