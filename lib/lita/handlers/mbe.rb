@@ -68,7 +68,7 @@ module Lita
             html  = ERB.new(File.read(path)).result(@invoice.get_binding)
 
             pdf = WickedPdf.new.pdf_from_string(html)
-            robot.chat_service.send_attachment(response, pdf)
+            robot.chat_service.send_attachment(user, pdf)
           end
         end
       end
