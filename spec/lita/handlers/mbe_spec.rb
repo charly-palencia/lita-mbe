@@ -92,7 +92,7 @@ describe Lita::Handlers::Mbe, lita_handler: true do
 
     before do
       subject.redis.hmset("user:#{user.id}", *attributes)
-      subject.redis.set("user:question:#{user.id}", :item_cost)
+e     subject.redis.set("user:question:#{user.id}", :item_cost)
       send_command('2')
     end
 
