@@ -1,7 +1,7 @@
 require_relative '../../models/invoice'
 require 'ostruct'
 require 'wicked_pdf'
-require 'aws/s3'
+require 'aws-sdk'
 
 module Lita
   module Handlers
@@ -73,13 +73,17 @@ module Lita
             file << pdf
           end
 
-          AWS::S3::Base.establish_connection!(
-            :access_key_id     => ENV['S3_ACCESS_KEY_ID'],
-            :secret_access_key => ENV['S3_SECRET_ACCESS_KEY']
-          )
+          Aws.config.update({
+              region: 'us-west-2',
+              credentials: Aws::Credentials.new(ENV['S3_ACCESS_KEY_ID'], ENV['S3_SECRET_ACCESS_KEY']),
+          })
 
-          response.reply("borrado") if AWS::S3::S3Object.delete "invoice-#{user.id}.pdf", 'lita-mbe'
-          AWS::S3::S3Object.store("invoice-#{user.id}.pdf", open(file.path), 'lita-mbe', access: :public_read)
+          s3 = AWS::S3.new
+
+          response.reply("borrado") if s3.bucket['lita-mbe'].objects["invoice-#{user.id}.pdf"].delete
+          s3.bucket['lita-mbe'].objects.create("invoice-#{user.id}.pdf", open(file.path))
+
+          # AWS::S3::S3Object.store("invoice-#{user.id}.pdf", open(file.path), 'lita-mbe', access: :public_read)
 
           response.reply("http://s3.amazonaws.com/lita-mbe/invoice-#{user.id}.pdf")
         end
