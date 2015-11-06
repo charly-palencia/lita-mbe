@@ -60,7 +60,6 @@ module Lita
           response.reply(':)')
           redis.del("user:question:#{user.id}")
           redis.hsetnx("user:#{user.id}", :item_cost, message)
-          require 'pry'; binding.pry
 
           user_information = redis.hgetall("user:#{user.id}")
           @invoice = Invoice.for(user_information)
